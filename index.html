@@ -1,1 +1,557 @@
-index
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursor Pro Assistant</title>
+    <style>
+        :root {
+            /* 主色调：青花瓷蓝 + 苏州灰 */
+            --primary-color: #1B315E;  /* 青花色 */
+            --text-color: #1d1d1f;
+            --secondary-text: #595959;  /* 苏州灰 */
+            --bg-color: #f8f9fb;  /* 清浅米白 */
+            --card-bg: #ffffff;
+            --border-color: #e8e8e8;
+            --link-color: #1B315E;
+            --gradient-start: #1B315E;  /* 青花色 */
+            --gradient-end: #436EEE;    /* 靛青色 */
+            --warning-bg: #FFF7E6;      /* 浅杏色 */
+            --warning-border: #FFD591;   /* 杏色 */
+            --warning-text: #873800;     /* 深茶色 */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.5;
+            color: var(--text-color);
+            background: var(--bg-color);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 120px 0 80px;
+            background: var(--bg-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 600;
+            letter-spacing: -0.002em;
+            margin-bottom: 16px;
+            background: linear-gradient(180deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 27px;
+            color: var(--secondary-text);
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            margin: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 60px;
+            color: var(--text-color);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 0 auto;
+        }
+
+        .feature-card, .download-card, .guide-card {
+            background: var(--card-bg);
+            box-shadow: 0 2px 8px rgba(27, 49, 94, 0.05);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(27, 49, 94, 0.08);
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: left;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            background: #f0f7ff;
+        }
+
+        .feature-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: var(--primary-color);
+        }
+
+        .feature-card h3 {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0;
+            color: var(--text-color);
+        }
+
+        .feature-card p {
+            font-size: 16px;
+            color: var(--secondary-text);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .download-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 18px;
+            border: 1px solid var(--border-color);
+        }
+
+        .download-card h3 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .download-card p {
+            color: var(--secondary-text);
+            margin-bottom: 24px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            box-shadow: 0 2px 8px rgba(27, 49, 94, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(27, 49, 94, 0.2);
+            opacity: 0.95;
+        }
+
+        .download-links {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .download-links p {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        .warning {
+            background: var(--warning-bg);
+            border: 1px solid var(--warning-border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--warning-text);
+        }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .guide-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 18px;
+            border: 1px solid var(--border-color);
+        }
+
+        .guide-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .guide-card p {
+            color: var(--secondary-text);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .guide-card ul, .guide-card ol {
+            padding-left: 20px;
+        }
+
+        .guide-card li {
+            margin: 8px 0;
+            color: var(--text-color);
+            position: relative;
+        }
+
+        .guide-card ul li::before {
+            content: "•";
+            color: var(--gradient-start);
+            font-weight: bold;
+            position: absolute;
+            left: -15px;
+        }
+
+        .code-reveal {
+            cursor: pointer;
+            color: var(--primary-color);
+            font-size: 14px;
+        }
+
+        .code-reveal:hover {
+            text-decoration: underline;
+        }
+
+        code {
+            background: rgba(27, 49, 94, 0.05);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "SF Mono", Consolas, monospace;
+            font-size: 0.9em;
+        }
+
+        .feature-icon img {
+            filter: drop-shadow(0 2px 4px rgba(27, 49, 94, 0.1));
+        }
+
+        .footer {
+            background: var(--bg-color);
+            padding: 40px 0;
+            margin-top: 80px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer p {
+            color: var(--secondary-text);
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+            .hero p {
+                font-size: 22px;
+            }
+            .section-title {
+                font-size: 36px;
+            }
+            .grid, .download-grid, .guide-grid {
+                grid-template-columns: 1fr;
+            }
+            .feature-card, .download-card, .guide-card {
+                padding: 30px;
+            }
+        }
+
+        /* GitHub Corner 样式 */
+        .github-corner {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        .github-corner svg {
+            fill: var(--primary-color);
+            color: var(--bg-color);
+            width: 80px;
+            height: 80px;
+        }
+
+        .github-corner:hover .octo-arm {
+            animation: octocat-wave 560ms ease-in-out;
+        }
+
+        @keyframes octocat-wave {
+            0%, 100% { transform: rotate(0) }
+            20%, 60% { transform: rotate(-25deg) }
+            40%, 80% { transform: rotate(10deg) }
+        }
+
+        /* 鸣谢部分样式 */
+        .credits {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 40px;
+            margin-top: 40px;
+            border: 1px solid var(--border-color);
+        }
+
+        .credits h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .credits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .credit-item {
+            padding: 20px;
+            background: var(--bg-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .credit-item h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .credit-item p {
+            font-size: 14px;
+            color: var(--secondary-text);
+            margin-bottom: 15px;
+        }
+
+        .credit-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .credit-item a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- 装饰元素 -->
+    <div class="decoration decoration-1"></div>
+    <div class="decoration decoration-2"></div>
+    <div class="decoration decoration-3"></div>
+
+    <div class="hero">
+        <div class="container">
+            <h1>Cursor Pro Assistant</h1>
+            <p>优雅、高效的 Cursor 辅助工具</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <section class="section">
+            <h2 class="section-title">特性</h2>
+            <div class="grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+                        </svg>
+                    </div>
+                    <h3>全自动注册</h3>
+                    <p>快速完成 Cursor 账号注册流程</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/>
+                        </svg>
+                    </div>
+                    <h3>一键重置</h3>
+                    <p>轻松重置机器码，无需手动操作</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19.43 12.98c.04-.32.07-.64.07-.98 0-.34-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98 0 .33.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/>
+                        </svg>
+                    </div>
+                    <h3>可视化配置</h3>
+                    <p>简单直观的配置管理界面</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">下载</h2>
+            <div class="download-grid">
+                <div class="download-card">
+                    <h3>Windows 版本</h3>
+                    <p>支持 Windows 10/11 系统</p>
+                    <a href="https://github.com/lbjlaq/cursor_pro/releases" class="btn">下载应用</a>
+                    <div class="download-links">
+                        <p>或通过网盘下载：</p>
+                        <p><a href="https://pan.quark.cn/s/aa6979edbd74">夸克网盘</a></p>
+                        <p>提取码：<span class="code-reveal" onclick="this.innerHTML = this.classList.contains('revealed') ? '点击查看' : 'Dikf'; this.classList.toggle('revealed')">点击查看</span></p>
+                    </div>
+                </div>
+                <div class="download-card">
+                    <h3>macOS 版本</h3>
+                    <p>适用于 Apple Silicon 芯片</p>
+                    <a href="https://github.com/lbjlaq/cursor_pro/releases" class="btn">下载应用</a>
+                    <div class="download-links">
+                        <p>或通过网盘下载：</p>
+                        <p><a href="https://pan.quark.cn/s/aa6979edbd74">夸克网盘</a></p>
+                        <p>提取码：<span class="code-reveal" onclick="this.innerHTML = this.classList.contains('revealed') ? '点击查看' : 'Dikf'; this.classList.toggle('revealed')">点击查看</span></p>
+                    </div>
+                    <div class="warning">
+                        ⚠️ 注意：仅支持 M1/M2/M3 芯片的 Mac
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">使用说明</h2>
+            <div class="guide-grid">
+                <div class="guide-card">
+                    <h3>系统要求</h3>
+                    <ul>
+                        <li>Google Chrome 浏览器</li>
+                        <li>管理员权限</li>
+                        <li>Cursor Web端必须登录账号</li>
+                        <li>必须能正常访问 Cursor 官网</li>
+                        <li>稳定的网络连接</li>
+                    </ul>
+                </div>
+                <div class="guide-card">
+                    <h3>快速开始</h3>
+                    <ol>
+                        <li>下载并安装程序</li>
+                        <li>以管理员身份运行</li>
+                        <li>完成必要配置</li>
+                        <li>开始使用功能</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="guide-grid" style="margin-top: 40px;">
+                <div class="guide-card">
+                    <h3>Cloudflare 邮箱配置</h3>
+                    <ol>
+                        <li>将域名托管到 Cloudflare</li>
+                        <li>在 Email Routing 中启用邮箱服务</li>
+                        <li>添加 Catch-all 规则</li>
+                        <li>设置转发地址为 tempmail.plus 邮箱</li>
+                        <li>等待 DNS 记录生效（约5-10分钟）</li>
+                    </ol>
+                </div>
+                <div class="guide-card">
+                    <h3>Tempmail.plus 配置</h3>
+                    <ol>
+                        <li>访问 <a href="https://tempmail.plus">tempmail.plus</a></li>
+                        <li>选择一个自定义邮箱前缀</li>
+                        <li>设置并记住 PIN 码</li>
+                        <li>将邮箱地址和 PIN 填入助手配置</li>
+                        <li>测试邮箱是否能正常接收邮件</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="warning" style="max-width: 600px; margin: 40px auto;">
+                ⚠️ 注意：配置邮箱服务前，请确保：
+                <ul>
+                    <li>DNS 记录已正确配置</li>
+                    <li>邮箱服务已正常启用</li>
+                    <li>已测试邮件转发功能</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">获取帮助</h2>
+            <div class="help-links" style="text-align: center;">
+                <a href="https://mp.weixin.qq.com/s/a1yfOPAB1Whvzw3uJPGPgg" class="btn">查看详细文档</a>
+                <a href="https://lbjlaq.github.io/cursor_pro/" class="btn" style="margin-left: 20px;">访问社区</a>
+                <p style="margin-top: 20px; color: var(--secondary-text);">
+                    关注公众号获取更多帮助：<code>Ctrler</code>
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Copyright © 2024 Cursor Pro Assistant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- GitHub Corner -->
+    <a href="https://github.com/lbjlaq/cursor_pro" class="github-corner" aria-label="View on GitHub">
+        <svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true">
+            <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+            <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+            <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+        </svg>
+    </a>
+
+    <section class="section">
+        <h2 class="section-title">鸣谢</h2>
+        <div class="credits">
+            <div class="credits-grid">
+                <div class="credit-item">
+                    <h4>cursor-auto-free</h4>
+                    <p>优秀的 Cursor 自动化工具，提供了完整的自动注册和配置功能。</p>
+                    <a href="https://github.com/chengazhen/cursor-auto-free" target="_blank">访问项目</a>
+                </div>
+                <div class="credit-item">
+                    <h4>go-cursor-help</h4>
+                    <p>一个出色的 Cursor 机器码重置工具，为本项目提供了重要的技术支持。</p>
+                    <a href="https://github.com/yuaotian/go-cursor-help" target="_blank">访问项目</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html> 

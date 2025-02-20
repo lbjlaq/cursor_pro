@@ -10,15 +10,10 @@
 
 ## 📥 下载
 
-### Windows 版本
-- 支持 Windows 10/11 系统
-- [GitHub Releases](https://github.com/lbjlaq/cursor_pro/releases)
-- [夸克网盘](https://pan.quark.cn/s/aa6979edbd74) (提取码: Dikf)
+请通过以下方式获取完整源码：
 
-### macOS 版本
-- 仅支持 Apple Silicon (M1/M2/M3) 芯片的 Mac
-- [GitHub Releases](https://github.com/lbjlaq/cursor_pro/releases)
-- [夸克网盘](https://pan.quark.cn/s/aa6979edbd74) (提取码: Dikf)
+关注公众号：CTRLER
+在公众号后台回复：Cursor
 
 ## 💻 系统要求
 
